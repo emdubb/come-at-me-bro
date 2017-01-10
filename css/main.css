@@ -27,6 +27,10 @@ h3 {
   font-weight: 300;
 }
 
+p {
+  font-size: .9em;
+}
+
 header {
   background: rgba(255, 255, 255, 0.3);
   margin: 0;
@@ -53,7 +57,7 @@ section, footer {
 }
 
 footer {
-  font-size: .6em;
+  font-size: .8em;
   padding-top: 30px;
 }
 
@@ -82,8 +86,9 @@ footer {
   width: 70%;
 }
 
-.error {
+.error, .error p {
   color: #FF2008;
+  font-weight: 400;
 }
 
 #browser-message {
@@ -117,6 +122,6 @@ footer {
   transform: translate(-50%, -50%);
 }
 
-#file-type-error {
+#downsample50-file-type-error {
   display: none;
 }
