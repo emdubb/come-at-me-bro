@@ -1,26 +1,23 @@
 $(document).ready(function(){
-  var counter = 0;
   var canvasArray = [];
   var malformedRatios = [];
   var zip = new JSZip();
   zip.folder("Remix1080p");
   $("#remix1080FileUpload").change(function(){
+    console.log('dat export', this)
     var that = this;
     formatFiles(this, "Remix1080p/thumbnail/", 300, 448, "_thumbnail", function(){
-      // secondFormat(that)
       canvasArray = [];
+      malformedRatios = [];
       formatFiles(that, "Remix1080p/posters/", 600, 896, "_posters", function(){
         exportFiles()
       });
     });
   })
 
-  function secondFormat(that) {
-
-  }
-
   function formatFiles(that, path, exportWidth, exportHeight, nameExtension, callback){
-    $("#remix1080error").text("")
+    $("#remix1080error").text("");
+    $("#remix1080success").text("");
     var files = that.files
     console.log(files)
     for (var i = 0; i < files.length; i++) {
@@ -67,7 +64,6 @@ $(document).ready(function(){
             canvas.toBlob(function(blob){
               zip.file(path + name, blob);
               canvasArray.push(blob)
-              console.log('in blob', canvasArray)
               if (canvasArray.length === files.length) {
                 if (error == true) {
                   message = "<p>The following files were an improper ratio and were unable to be downsized: <em>" + malformedRatios.join(', '); + "</em></p>"
@@ -93,6 +89,12 @@ $(document).ready(function(){
       .then(function(content) {
           saveAs(content, "Remix1080p.zip");
           console.log("finished!")
+          $("#remix1080success").append("Your files were successfully exported and should download automatically. If you do not see them, please refresh and try again.")
+          // Reset everything to use again
+          canvasArray = [];
+          malformedRatios = [];
+          zip = new JSZip();
+          zip.folder("Remix1080p");
       });
   }
 
