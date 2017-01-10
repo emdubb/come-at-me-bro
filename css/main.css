@@ -9,6 +9,7 @@ img {
   margin: 30px auto;
   display: block;
   width: 40%;
+  max-width: 300px;
 }
 
 a {
