@@ -3,7 +3,7 @@ $(document).ready(function(){
   var canvasArray = [];
   var malformedRatios = [];
   var zip = new JSZip();
-  zip.folder("export");
+  zip.folder("Remix1080p");
   $("#remix1080FileUpload").change(function(){
     formatFiles(this, function(){
       exportFiles()
@@ -26,7 +26,6 @@ $(document).ready(function(){
             var fileExtension = splitName.pop();
             var name = splitName.join('.') + "_thumbnail." + fileExtension;
 
-            console.log("SPLIT: ", name)
             var url = event.target.result;
 
             var img = new Image();
@@ -55,7 +54,7 @@ $(document).ready(function(){
             ctx.drawImage(img, 0, 0, img.width, img.height)
 
             canvas.toBlob(function(blob){
-              zip.file("export/" + name, blob);
+              zip.file("Remix1080p/thumbnail/" + name, blob);
               canvasArray.push(blob)
               if (canvasArray.length === files.length) {
                 if (error == true) {
@@ -80,7 +79,7 @@ $(document).ready(function(){
   function exportFiles(){
     zip.generateAsync({type:"blob"})
       .then(function(content) {
-          saveAs(content, "export.zip");
+          saveAs(content, "Remix1080p.zip");
           console.log("finished!")
       });
   }
