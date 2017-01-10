@@ -5,12 +5,21 @@ $(document).ready(function(){
   var zip = new JSZip();
   zip.folder("Remix1080p");
   $("#remix1080FileUpload").change(function(){
-    formatFiles(this, function(){
-      exportFiles()
+    var that = this;
+    formatFiles(this, "Remix1080p/thumbnail/", 300, 448, "_thumbnail", function(){
+      // secondFormat(that)
+      canvasArray = [];
+      formatFiles(that, "Remix1080p/posters/", 600, 896, "_posters", function(){
+        exportFiles()
+      });
     });
   })
 
-  function formatFiles(that, callback){
+  function secondFormat(that) {
+
+  }
+
+  function formatFiles(that, path, exportWidth, exportHeight, nameExtension, callback){
     $("#remix1080error").text("")
     var files = that.files
     console.log(files)
@@ -24,7 +33,7 @@ $(document).ready(function(){
             var error
             var splitName = file.name.split('.');
             var fileExtension = splitName.pop();
-            var name = splitName.join('.') + "_thumbnail." + fileExtension;
+            var name = splitName.join('.') + nameExtension + "." + fileExtension;
 
             var url = event.target.result;
 
@@ -34,13 +43,15 @@ $(document).ready(function(){
 
             if (ratio == 0.66964) {
               console.log("valid movie ratio");
-              img.width = 300
-              img.height = 448
+              img.width = exportWidth
+              img.height = exportHeight
             } else if (ratio == 1) {
               console.log("valid audio ratio");
-              img.width = 300
-              img.height = 300
+              img.width = exportWidth
+              img.height = exportWidth
             } else {
+              img.width = img.width
+              img.height = img.height
               console.log("invalid ratio", ratio)
               malformedRatios.push(file.name);
               console.log("MALFORMED: ", malformedRatios);
@@ -54,8 +65,9 @@ $(document).ready(function(){
             ctx.drawImage(img, 0, 0, img.width, img.height)
 
             canvas.toBlob(function(blob){
-              zip.file("Remix1080p/thumbnail/" + name, blob);
+              zip.file(path + name, blob);
               canvasArray.push(blob)
+              console.log('in blob', canvasArray)
               if (canvasArray.length === files.length) {
                 if (error == true) {
                   message = "<p>The following files were an improper ratio and were unable to be downsized: <em>" + malformedRatios.join(', '); + "</em></p>"
