@@ -5,10 +5,10 @@ $(document).ready(function(){
   $("#remix1080FileUpload").change(function(){
     zip.folder("Remix1080p");
     var that = this;
-    formatFiles(this, "Remix1080p/thumbnail/", 300, 448, "_thumbnail", "Remix1080", function(){
+    formatFiles(this, "Remix1080p/thumbnail/", 300, 448, "_thumbnail@2x", "Remix1080", function(){
       canvasArray = [];
       malformedRatios = [];
-      formatFiles(that, "Remix1080p/posters/", 600, 896, "_posters", "Remix1080", function(){
+      formatFiles(that, "Remix1080p/posters/", 600, 896, "_posters@2x", "Remix1080", function(){
         exportFiles("Remix1080")
       });
     });
