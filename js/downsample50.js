@@ -1,9 +1,8 @@
 $(document).ready(function(){
-  var counter = 0;
   var canvasArray = [];
   var zip = new JSZip();
-  zip.folder("export");
   $("#fileUpload").change(function(){
+    zip.folder("export");
     formatFiles(this, function(){
       exportFiles()
     });
@@ -11,6 +10,7 @@ $(document).ready(function(){
 
   function formatFiles(that, callback){
     $("#downsample50-file-type-error").hide();
+    $("#downsample50success").text("");
     var files = that.files
     console.log(files)
     for (var i = 0; i < files.length; i++) {
@@ -56,6 +56,11 @@ $(document).ready(function(){
       .then(function(content) {
           saveAs(content, "export.zip");
           console.log("finished!")
+          var message = "Your files were successfully exported and should download automatically. If you do not see them, please refresh and try again.";
+          $("#downsample50success").append(message);
+          // Reset everything to use again
+          var canvasArray = [];
+          var zip = new JSZip();
       });
   }
 

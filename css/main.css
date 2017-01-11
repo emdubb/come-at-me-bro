@@ -11,7 +11,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #00B27C;
+  color: #66D1B0;
 }
 
 h1 {
@@ -57,6 +57,10 @@ section, footer {
   clear: both;
 }
 
+section {
+  padding: 30px 0;
+}
+
 footer {
   font-size: .8em;
   padding-top: 30px;
@@ -83,13 +87,24 @@ footer {
 
 .thick-rule {
   height: 3px;
-  background: #00B27C;
   width: 70%;
+}
+
+.assets .thick-rule {
+  background: #00B27C;
+}
+
+.metadata .thick-rule {
+  background: #66D1B0;
 }
 
 .error, .error p {
   color: #FF2008;
   font-weight: 400;
+}
+
+.file-note {
+  font-size: 0.7em;
 }
 
 #browser-message {
