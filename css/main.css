@@ -2,10 +2,11 @@ body {
   font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
   background: linear-gradient(#57D5FF, #017CA3);
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100%;
   color: white;
   margin: 0;
   font-weight: 300;
+  background-position: fixed;
 }
 
 a {

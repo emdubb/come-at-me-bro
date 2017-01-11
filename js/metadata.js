@@ -12,7 +12,7 @@ $(document).ready(function(){
         exportFiles("Remix1080")
       });
     });
-  })
+  });
 
   $("#remix720FileUpload").change(function(){
     zip.folder("Remix720p");
@@ -24,7 +24,19 @@ $(document).ready(function(){
         exportFiles("Remix720")
       });
     });
-  })
+  });
+
+  $("#wirelessFileUpload").change(function(){
+    zip.folder("Wireless");
+    var that = this;
+    formatFiles(this, "Wireless/thumbnail/", 750, 448, "_thumbnail", "Wireless", function(){
+      canvasArray = [];
+      malformedRatios = [];
+      formatFiles(that, "Wireless/posters/", 750, 1120, "_posters", "Wireless", function(){
+        exportFiles("Wireless")
+      });
+    });
+  });
 
   function formatFiles(that, path, exportWidth, exportHeight, nameExtension, system, callback){
     switch (system) {
